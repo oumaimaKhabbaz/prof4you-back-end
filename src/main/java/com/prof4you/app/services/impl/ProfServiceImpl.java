@@ -1,8 +1,11 @@
 package com.prof4you.app.services.impl;
 
+import com.prof4you.app.entities.Account;
 import com.prof4you.app.entities.Prof;
+import com.prof4you.app.entities.Role;
 import com.prof4you.app.entities.Subject;
 import com.prof4you.app.repositories.ProfRepository;
+import com.prof4you.app.repositories.RoleRepository;
 import com.prof4you.app.services.api.ProfService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +25,20 @@ public class ProfServiceImpl implements ProfService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfServiceImpl.class);
 
     private ProfRepository profRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    ProfServiceImpl(final ProfRepository profRepository){
+    ProfServiceImpl(final ProfRepository profRepository, final  RoleRepository roleRepository){
         this.profRepository = profRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public Prof create(Prof prof) {
+        Account account = prof.getAccount();
+        Collection<Role> roles = account.getRoles();
+        roles.add(roleRepository.findByRoleName("PROF"));
+        account.setRoles(roles);
         return profRepository.save(prof);
     }
 
