@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -45,6 +45,15 @@ public class Account {
 
     @Column
     private String accountType;
+
+    private Date birthDay;
+
+    private String address;
+
+    private String phoneNumber;
+
+    @Column(columnDefinition = "varchar(5000)")
+    private String photo;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();
