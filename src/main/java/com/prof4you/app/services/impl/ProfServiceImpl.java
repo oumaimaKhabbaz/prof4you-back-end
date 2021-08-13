@@ -4,6 +4,7 @@ import com.prof4you.app.entities.Account;
 import com.prof4you.app.entities.Prof;
 import com.prof4you.app.entities.Role;
 import com.prof4you.app.entities.Subject;
+import com.prof4you.app.repositories.AccountRepository;
 import com.prof4you.app.repositories.ProfRepository;
 import com.prof4you.app.repositories.RoleRepository;
 import com.prof4you.app.services.api.ProfService;
@@ -26,11 +27,14 @@ public class ProfServiceImpl implements ProfService {
 
     private ProfRepository profRepository;
     private RoleRepository roleRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    ProfServiceImpl(final ProfRepository profRepository, final  RoleRepository roleRepository){
+    ProfServiceImpl(final ProfRepository profRepository, final  RoleRepository roleRepository,
+                    AccountRepository accountRepository  ){
         this.profRepository = profRepository;
         this.roleRepository = roleRepository;
+        this.accountRepository =  accountRepository;
     }
 
     @Override
@@ -83,4 +87,5 @@ public class ProfServiceImpl implements ProfService {
         }
         return profRepository.findDistinctBySubjectsIn(subjects);
     }
+
 }

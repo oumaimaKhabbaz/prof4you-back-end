@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.sql.Blob;
+import java.util.Date;
 
 @Entity
 @Table(name = "STUDENT")
@@ -29,6 +31,19 @@ public class Student {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
+
+    private String firstname;
+
+    private String secondname;
+
+    private Date birthDay;
+
+    private String address;
+
+    private String phoneNumber;
+
+    private Blob photo;
+
 
 
 }
